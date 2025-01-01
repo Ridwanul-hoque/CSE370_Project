@@ -21,11 +21,6 @@ Boipoka is an online bookstore designed to provide a seamless and engaging exper
 - **Framer Motion**: Library for adding animations and enhancing the user experience.
 - **SweetAlert**: Stylish and customizable alert messages.
 
-## Available Scripts
-
-- `npm start`: Starts the development server.
-- `npm build`: Builds the app for production.
-- `npm test`: Runs the test suite.
 
 
 Live Site: [https://boi-poka-8411f.web.app/]
