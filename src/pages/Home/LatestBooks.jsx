@@ -4,7 +4,7 @@ import LatestBookCard from './LatestBookCard';
 const LatestBooks = () => {
     const [books, setBooks] = useState([])
     useEffect(() => {
-        fetch('http://localhost:5000/books')
+        fetch('https://boi-poka-server-eta.vercel.app/books')
             .then(res => res.json())
             .then(data => setBooks(data))
 

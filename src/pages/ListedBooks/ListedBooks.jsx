@@ -10,7 +10,7 @@ const ListedBooks = () => {
     const { user } = useAuth()
 
     useEffect(() => {
-        fetch(`http://localhost:5000/books-cart?email=${user.email}`)
+        fetch(`https://boi-poka-server-eta.vercel.app/books-cart?email=${user.email}`)
             .then(res => res.json())
             .then(data => setBooks(data))
 
@@ -18,7 +18,7 @@ const ListedBooks = () => {
 
 
     const handleRemove = (id) => {
-        fetch(`http://localhost:5000/books-cart/${id}`, {
+        fetch(`https://boi-poka-server-eta.vercel.app/books-cart/${id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -30,7 +30,7 @@ const ListedBooks = () => {
     };
     const handleBuyAll = () => {
         setTotalBeforePurchase(totalPrice);
-        fetch(`http://localhost:5000/books-cart?email=${user.email}`, {
+        fetch(`https://boi-poka-server-eta.vercel.app/books-cart?email=${user.email}`, {
             method: 'DELETE',
         })
             .then(res => res.json())

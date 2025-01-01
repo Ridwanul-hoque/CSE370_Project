@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             {
                 path: '/books/:id',
                 element: <PrivateRoute><BooksDetails></BooksDetails></PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/books/${params.id}`)
+                loader: ({ params }) => fetch(`https://boi-poka-server-eta.vercel.app/books/${params.id}`)
             },
             {
                 path: 'addBook',

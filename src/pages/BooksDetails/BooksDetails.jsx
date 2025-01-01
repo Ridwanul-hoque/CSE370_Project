@@ -18,7 +18,7 @@ const BooksDetails = () => {
 
     const handleBuyNow = () => {
         const bookData = { ...OtherInfo, userEmail: user?.email };
-        fetch('http://localhost:5000/books-cart', {
+        fetch('https://boi-poka-server-eta.vercel.app/books-cart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

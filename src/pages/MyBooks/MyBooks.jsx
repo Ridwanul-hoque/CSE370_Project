@@ -8,7 +8,7 @@ const MyBooks = () => {
     const { user } = useAuth()
 
     useEffect(() => {
-        fetch(`http://localhost:5000/books?email=${user.email}`)
+        fetch(`https://boi-poka-server-eta.vercel.app/books?email=${user.email}`)
             .then(res => res.json())
             .then(data => setBooks(data))
 
