@@ -8,7 +8,7 @@ const MyBooks = () => {
     const { user } = useAuth()
 
     useEffect(() => {
-        fetch(`https://boi-poka-server-eta.vercel.app/books?email=${user.email}`)
+        fetch(`http://localhost:5005/books?email=${user.email}`)
             .then(res => res.json())
             .then(data => setBooks(data))
 
@@ -49,7 +49,7 @@ const MyBooks = () => {
                                     {book.email}
 
                                 </td>
-                                <td><Link to={`/updateBooks/${book._id}`}>
+                                <td><Link to={`/updateBooks/${book.id}`}>
                                     <button className="btn btn-ghost btn-xs bg-green-800 text-white">
                                         Update
                                     </button>

@@ -24,7 +24,7 @@ const AddBooks = () => {
         // console.log(newBook);
 
 
-        fetch('https://boi-poka-server-eta.vercel.app/books', {
+        fetch('http://localhost:5005/books', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

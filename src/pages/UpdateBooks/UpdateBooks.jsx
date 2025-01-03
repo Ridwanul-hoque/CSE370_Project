@@ -9,7 +9,7 @@ const UpdateBooks = () => {
 
     useEffect(() => {
         // Fetch the book data by ID
-        fetch(`https://boi-poka-server-eta.vercel.app/books/${id}`)
+        fetch(`http://localhost:5005/books/${id}`)
             .then((res) => res.json())
             .then((data) => setBook(data))
             .catch((error) => console.error('Error fetching book:', error));
@@ -34,7 +34,7 @@ const UpdateBooks = () => {
         };
 
         // Send the updated book data to the server
-        fetch(`https://boi-poka-server-eta.vercel.app/books/${id}?email=${updatedBook.email}`, {
+        fetch(`http://localhost:5005/books/${id}?email=${updatedBook.email}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

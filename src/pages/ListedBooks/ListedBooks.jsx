@@ -10,7 +10,7 @@ const ListedBooks = () => {
     const { user } = useAuth()
 
     useEffect(() => {
-        fetch(`https://boi-poka-server-eta.vercel.app/books-cart?email=${user.email}`)
+        fetch(`http://localhost:5005/books-cart?email=${user.email}`)
             .then(res => res.json())
             .then(data => setBooks(data))
 
@@ -18,19 +18,19 @@ const ListedBooks = () => {
 
 
     const handleRemove = (id) => {
-        fetch(`https://boi-poka-server-eta.vercel.app/books-cart/${id}`, {
+        fetch(`http://localhost:5005/books-cart/${id}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
             .then(data => {
                 if (data.deletedCount > 0) {
-                    setBooks(books.filter(book => book._id !== id));
+                    setBooks(books.filter(book => book.id !== id));
                 }
             });
     };
     const handleBuyAll = () => {
         setTotalBeforePurchase(totalPrice);
-        fetch(`https://boi-poka-server-eta.vercel.app/books-cart?email=${user.email}`, {
+        fetch(`http://localhost:5005/books-cart?email=${user.email}`, {
             method: 'DELETE',
         })
             .then(res => res.json())
@@ -47,18 +47,22 @@ const ListedBooks = () => {
             });
     };
 
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    const totalPrice = books.reduce((sum, book) => sum + parseFloat(book.price || 0), 0);
+    const totalPrice = Array.isArray(books)
+        ? books.reduce((sum, book) => sum + parseFloat(book.price || 0), 0)
+        : 0;
 
     return (
         <div className="overflow-x-auto">
             <div className="mb-4 flex justify-between items-center p-4 bg-gray-100 rounded-lg">
                 <div className="text-xl font-bold">Total Price: ৳ {totalPrice.toFixed(2)}</div>
-                <button onClick={handleBuyAll} className="btn bg-pink-600 text-white">Buy All</button>
+                <button onClick={handleBuyAll} className={`btn bg-pink-600 text-white ${!formData.name || !formData.address || !formData.phone ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={!formData.name || !formData.address || !formData.phone}>Buy All</button>
             </div>
             <table className="table">
                 {/* head */}
@@ -77,16 +81,11 @@ const ListedBooks = () => {
                             <tr>
                                 <td>
                                     <div className="flex items-center gap-3">
-                                        <div className="avatar">
-                                            <div className="mask mask-squircle h-12 w-12">
-                                                <img
-                                                    src={book.image}
-                                                    alt={book.bookName} />
-                                            </div>
-                                        </div>
                                         <div>
-                                            <div className="font-bold">{book.author}</div>
-                                            <div className="text-sm opacity-50">{book.publisher}</div>
+                                            <div>
+                                                <div className="font-bold">{book.bookName}</div>
+                                                <div>{book.author}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -98,7 +97,7 @@ const ListedBooks = () => {
                                     <div>৳ {book.price}</div>
                                 </td>
                                 <th>
-                                    <button onClick={() => handleRemove(book._id)} className="btn btn-ghost btn-xs bg-pink-800 text-white">Remove</button>
+                                    <button onClick={() => handleRemove(book.id)} className="btn btn-ghost btn-xs bg-pink-800 text-white">Remove</button>
                                 </th>
                             </tr>)
                     }

@@ -17,8 +17,25 @@ const BooksDetails = () => {
 
 
     const handleBuyNow = () => {
-        const bookData = { ...OtherInfo, userEmail: user?.email };
-        fetch('https://boi-poka-server-eta.vercel.app/books-cart', {
+        if (!bookName || !author || !user?.email || !category || !price) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Missing required book details!',
+                icon: 'error',
+                confirmButtonText: 'Okay',
+            });
+            return;
+        }
+
+        const bookData = {
+            bookName,
+            author,
+            userEmail: user?.email,
+            category,
+            price,
+        };
+
+        fetch('http://localhost:5005/books-cart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,28 +44,33 @@ const BooksDetails = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                if (data.insertedId) {
+                if (data.id) {
                     Swal.fire({
                         title: 'Success',
                         text: 'Book added to cart',
                         icon: 'success',
-                        confirmButtonText: 'Cool'
-                      })
+                        confirmButtonText: 'Cool',
+                    });
                 } else {
                     Swal.fire({
                         title: 'Error',
-                        text: 'Book Did not added cart',
+                        text: 'Book did not add to cart',
                         icon: 'error',
-                        confirmButtonText: 'Cool'
-                      })
+                        confirmButtonText: 'Okay',
+                    });
                 }
             })
             .catch((error) => {
                 console.error('Error:', error);
-                alert('An error occurred while adding the book to the cart.');
+                Swal.fire({
+                    title: 'Error',
+                    text: 'An error occurred while adding the book to the cart.',
+                    icon: 'error',
+                    confirmButtonText: 'Okay',
+                });
             });
+    };
 
-    }
 
     // console.log(book)
     return (
