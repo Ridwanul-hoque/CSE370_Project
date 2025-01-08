@@ -23,4 +23,4 @@ Boipoka is an online bookstore designed to provide a seamless and engaging exper
 
 
 
-Live Site: [https://boi-poka-8411f.web.app/]
+
